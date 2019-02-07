@@ -8,7 +8,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWebKit import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtWebKitWidgets import QWebView
-
+from setproctitle import setproctitle
 from os.path import expanduser
 
 DEFAULT_APP_ICON_PATH='/usr/local/lib/abikit-browser/abikit-browser.svg'
@@ -83,6 +83,7 @@ def main():
     parser.add_argument('-p', '--localstoragepath', dest='localstoragepath', type=str, default=DEFAULT_LOCAL_STORAGE_PATH, help='Path to local storage')
     parser.add_argument('-i', '--iconpath', dest='iconpath', type=str, default=DEFAULT_APP_ICON_PATH, help='Path to application icon')
     parser.add_argument('-l', '--lockfile', dest='lockfile', type=str, default='', help='Write lock file containing a PID to this file')
+    parser.add_argument('-n', '--procname', dest='procname', type=str, default='', help='Set process name/title')
     parser.add_argument('-dev', '--devmode', dest='devmode', type=bool, default=False, help='Developer mode toggle')
 
     args = parser.parse_args()
@@ -111,6 +112,10 @@ def main():
         window.view.page().settings().setLocalStoragePath(args.localstoragepath)
         window.view.page().settings().setAttribute(QWebSettings.LocalStorageEnabled, True)
         sc.write_to_stdout("localstorage enabled, path: %s" % args.localstoragepath)
+
+    if args.procname != "":
+        sc.write_to_stdout("using process name %s" % args.procname)
+        setproctitle(args.procname)
 
     # Write lock file (if lock file path was set)
     lockfile = args.lockfile

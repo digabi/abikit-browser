@@ -8,8 +8,17 @@ This is typically called from a shell script bundled with the actual content (e.
 
 Abikit Browser supports several useful command-line parameters which can learned from the source.
 
-NB! Abikit Browser can be killed by sending SIGKILL to PID specified by `-l`. You have to manually
+Abikit Browser can be killed by sending SIGKILL to PID specified by `-l`. You have to manually
 remove the lock file.
+
+To kill all your `abikit-browser` processes use `-n`:
+
+```
+abikit-browser -n bubba file:///somecontent.html &
+abikit-browser -n bubba file:///somecontent.html &
+abikit-browser -n bubba file:///somecontent.html &
+pkill bubba
+```
 
 ## License
 
