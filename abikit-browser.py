@@ -13,6 +13,9 @@ from os.path import expanduser
 
 DEFAULT_APP_ICON_PATH='/usr/local/lib/abikit-browser/abikit-browser.svg'
 DEFAULT_LOCAL_STORAGE_PATH="%s/.cache/digabi-koe" % expanduser("~")
+DEFAULT_PROCNAME='abikit-browser'
+
+procname = DEFAULT_PROCNAME
 
 class SharedClass (QObject):
     @pyqtSlot(str)
@@ -28,7 +31,7 @@ class SharedClass (QObject):
 
     @pyqtSlot(str)
     def write_to_stdout(self, value):
-        print("[digabi-koe-browser] %s" % (value))
+        print("[%s] %s" % (procname, value))
         sys.stdout.flush()
 
 class Window (QWidget):
@@ -70,7 +73,7 @@ def lockfileRemove():
         sc.write_to_stdout("Removed lockfile %s" % lockfile)
 
 def main():
-    global lockfile
+    global lockfile, procname
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-W', '--width', dest='width', type=int, default=500, help='Browser window width')
@@ -114,8 +117,9 @@ def main():
         sc.write_to_stdout("localstorage enabled, path: %s" % args.localstoragepath)
 
     if args.procname != "":
-        sc.write_to_stdout("using process name %s" % args.procname)
+        procname = args.procname
         setproctitle(args.procname)
+        sc.write_to_stdout("using process name %s" % args.procname)
 
     # Write lock file (if lock file path was set)
     lockfile = args.lockfile
