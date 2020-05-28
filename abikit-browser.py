@@ -105,6 +105,7 @@ def main():
 
     # Dev-environment debug variables
     if args.devmode:
+        from PyQt5.QtWebKitWidgets import QWebInspector
         inspector = QWebInspector()
         window.view.page().settings().setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
         inspector.setPage(window.view.page())
