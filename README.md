@@ -26,7 +26,9 @@ When developing software for abikit browser (such as [koe-ohje](https://github.c
 
 Digabios is currently (18.6.2020) based on Debian Stretch. Stretch is using `pyqt5 5.7` which uses `Webkit 538` and that matches the version used in `Safari 7`. https://packages.debian.org/stretch/python-pyqt5
 
-Next planned debian for Digabios is Buster. Buster is using `pyqt5 5.11` which uses `Webkit 602` and that matches the version used in `Safari 10` https://packages.debian.org/buster/python-pyqt5
+Next planned debian for Digabios is Buster. Buster is using `pyqt5 5.11` https://packages.debian.org/buster/python-pyqt5
+
+(I wasn't able to get Webkit version for 5.11, closest info is for `pyqt5 5.10` which uses `Webkit 602` and that matches the version used in `Safari 10`) 
 
 If you have apt, you can check your systems pyqt5 version with command `apt list python-pyqt5`
 
